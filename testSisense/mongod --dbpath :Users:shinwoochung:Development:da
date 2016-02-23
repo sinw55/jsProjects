@@ -1,0 +1,37 @@
+DB location:
+mongod --dbpath /Users/shinwoochung/Development/data/db
+
+
+Create Replica nodes:
+mongod --dbpath /Users/shinwoochung/Development/data/dbReplica1 --port 30000 --replSet "replication"
+mongod --dbpath /Users/shinwoochung/Development/data/dbReplica2 --port 40000 --replSet "replication"
+mongod --dbpath /Users/shinwoochung/Development/data/dbReplica3 --port 50000 --replSet "replication"
+
+
+
+Define/Configure replica set:
+1. cmd 
+	mongo --port 30000
+2. Create configuration
+	var demoConfig = 
+	{
+		"_id": "replication",
+		"members": [
+			{
+				"_id": 0,
+				"host": "localhost:30000",
+				"priority": 10
+			},
+			{
+				"_id": 1,
+				"host": "localhost:40000"
+			},
+			{
+				"_id": 2,
+				"host": "localhost:50000",
+				"arbiterOnly": true
+			}
+		]
+	};
+3. Run configuration
+	rs.initiate(demoConfig);

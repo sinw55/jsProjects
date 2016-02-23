@@ -1,0 +1,4 @@
+---
+applications:
+- name: nodeJsServer2
+  command: node app.js
